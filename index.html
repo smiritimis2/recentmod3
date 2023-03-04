@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+button:hover{
+    background-color: burlywood;
+    color:black;
+    border: 2px solid white;
+   border-radius: 8px;
+
+}
+
+#SEARCH
+{
+    
+    width:900px;
+  border-radius: 7px;
+    height:20px;
+    background-color: black;
+    color: white;
+    border-color: white
+}
+body
+{
+    color:black;
+    background-color: black;
+}
+h3{
+    color:white;
+    background-color: black;
+    font-family:'Times New Roman', Times, serif;
+}
+
+hr{
+    color:white;
+}
+#main
+{
+    display:flex;
+    flex-wrap: wrap;
+    height: 1000px;
+    width: 1000px;
+    padding: 10px;
+}
+a
+{
+    color:aquamarine
+}
+
+</style>
+
+<body>
+    
+    <h3>Book Store App</h3>
+    <br>
+    <br>
+    <br>
+    <a href="./searched.html">Searched Page</a>
+    <br>
+    <br>
+    <br>
+    <a href="./history.html"> Search History</a>
+    <hr>
+    <h3>Search For Books By Their Name</h3>
+   <input id="SEARCH" placeholder="Search"></input>
+   <br>
+   <br>
+   <button id="search">Search Now !</button>
+   <div id="msg"></div>
+
+
+</body>
+<div id="main"></div>
+<script src="script.js"></script>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+body
+{
+    background-color: black;
+    color: white;
+    
+}
+#main
+{
+    padding: 20px;
+    margin:20px;
+    justify-content: space-evenly
+}
+
+#clr
+{
+    background-color: white;
+    color:black;
+}
+
+#main
+{
+    display:flex;
+    flex-wrap: wrap;
+    height: 300px;
+    width: 1000px;
+    padding: 5px;
+}
+a{
+  color: skyblue;
+}
+
+#mini
+{
+    display:flex;
+    flex-wrap: wrap;
+    height: 400px;
+    width: 1000px;
+    padding: 10px;
+}
+
+
+button{
+  position: absolute;
+  top:70px;
+  
+  height:40px;
+  width:100px;
+  right: 100px;
+  border-radius: 8px;
+}
+
+hr{
+  color:white;
+}
+</style>
+<body>
+    <h3>Book Store App</h3>
+    <hr>
+    <h1>Your Previous Searches</h1>
+    <button id="clr">Clear Search</button>
+<a href="./searched.html">Searched Page</a>
+<br>
+<a href="./index.html">Click Here to go to Landing Page</a>
+    <div id="main"></div>
+    <div id="mini"></div>
+</body>
+<script >
+fetch('https://www.googleapis.com/books/v1/volumes?q=percy+jackson').then((apidata)=>{
+     console.log(apidata);
+
+      return apidata.json();
+
+        })
+
+.then((actualdata)=>{
+ // localStorage.setItem("api" , JSON.stringify(arr))
+ let mindiv=document.getElementById("mini")
+         console.log(actualdata);
+  let count=0;
+  //let find=search.value;
+let clear=document.getElementById("clr");
+  let major=document.getElementById("main");
+let data = JSON.parse(localStorage.getItem('data'));
+console.log(data);
+let k=0;
+data.forEach((item)=> {
+    let cr=document.createElement('div');
+    cr.innerHTML=`
+    ${k} ${data[k].search} &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp    search at  ${data[k].date}
+   
+    
+    
+    `
+
+    //k++;let 
+    var searchvalue=data[k].search;
+    cr.style.border="2px solid white";
+    cr.style.width="930px";
+    cr.style.height="30px";
+    
+  major.append(cr);
+
+             cr.addEventListener("click",()=>{
+              mindiv.innerHTML="";
+              for(let j=0;j<10;j++)
+  
+  {
+          let mydata=actualdata.items[j];
+          //console.log(mydata.volumeInfo.title);
+         // console.log(find);
+          
+         if(mydata.volumeInfo.title.toLowerCase().split(" ").join("").includes(searchvalue.toLowerCase().split(" ").join(""))|| mydata.volumeInfo.authors[0].toLowerCase().split(" ").join("").includes(searchvalue.toLowerCase().split(" ").join("")))
+      //  if(mydata.volumeInfo.title.toLowerCase().split(" ").join("").includes(find.toLowerCase().split(" ").join(""))|| mydata.volumeInfo.authors[0].toLowerCase().split(" ").join("").includes(find.toLowerCase().split(" ").join("")))
+        
+        {
+           //console.log(mydata);
+           /*showmsg.innerHTML=`Search result for ${find}`
+           showmsg.style.color="white";
+           count=1;
+         search.value="";*/
+//mindiv.innerHTML="";
+            
+            let cr=document.createElement('div');
+          //  btn=document.createElement('button');
+            //btn.innerHTML="Buy Now";
+            //btn.style.height="25px";
+           // btn.style.width="180px";
+            cr.innerHTML=`
+          
+            <img src=${mydata.volumeInfo.imageLinks.thumbnail} height="200" width="200" alt="photo" border="1px solid black" box-sizing="border-box"  justifyContent="space-between" /> 
+            <br>
+            Title: ${mydata.volumeInfo.title}
+            <br>
+            
+            <br>
+            Authors  ${mydata.volumeInfo.authors[0]}
+            <br>
+            
+            Rating :${mydata.volumeInfo.averageRating}
+            <br>
+            Published Date : ${mydata.volumeInfo.publishedDate}
+            <br>
+            Page count :${mydata.volumeInfo.pageCount}
+            <br>
+            
+            
+            `
+           // cr.append(btn);
+            cr.style.height="400px";
+            cr.style.width="200px";
+            cr.style.borderStyle="solid";
+            
+            cr.style.borderRadius="2px";
+            cr.style.borderColor="black"
+            cr.style.display="block";
+            cr.style.margin="20px";
+            cr.style.borderColor="white";
+            cr.style.backgroundColor="black";
+            cr.style.color="white";
+           
+         mindiv.append(cr);
+  major.append(mindiv);
+
+
+
+
+
+
+
+         }
+
+       }
+       
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+               })
+
+  k++;
+
+
+})
+function clr()
+{
+   for(let i=0;i<data.length;i++)
+   {
+       delete data[i];
+   }
+   
+    console.log(data);
+    
+    major.innerHTML="";
+}
+clear.addEventListener("click",clr);
+
+
+})
+
+
+
+
+
+
+
+
+
+
+
+ /*for(let k=0;k<10;k++)
+  
+  {
+          let mydata=actualdata.items[k];
+          console.log(mydata.volumeInfo.title);
+          console.log(find);
+          
+         if(mydata.volumeInfo.title==find|| mydata.volumeInfo.authors[0]==find)
+         {
+           //console.log(mydata);
+           showmsg.innerHTML=`Search result for ${find}`
+           showmsg.style.color="white";
+           count=1;
+         search.value="";
+            
+            let cr=document.createElement('div');
+            
+            cr.innerHTML=`
+          
+            <img src=${mydata.volumeInfo.imageLinks.thumbnail} height="200" width="200" alt="photo" border="1px solid black" box-sizing="border-box"  justifyContent="space-between" /> 
+            <br>
+            Title: ${mydata.volumeInfo.title}
+            <br>
+            
+            <br>
+            Authors  ${mydata.volumeInfo.authors[0]}
+            <br>
+            
+            
+            
+            
+            `
+            
+            cr.style.height="400px";
+            cr.style.width="200px";
+            cr.style.borderStyle="solid";
+            
+            cr.style.borderRadius="2px";
+            cr.style.borderColor="black"
+            cr.style.display="block";
+            cr.style.margin="20px";
+            cr.style.borderColor="white";
+            cr.style.backgroundColor="black";
+            cr.style.color="white";
+           
+         major.append(cr);
+         }
+       };
+       
+    // })
+    
+    
+  
+/*let major=document.getElementById("main");
+let data = JSON.parse(localStorage.getItem('data'));
+console.log(data);
+let k=0
+data.forEach((item)=> {
+    let cr=document.createElement('div');
+    cr.innerHTML=`
+    ${k} ${data[k].search}    search On ${data[k].date}
+    
+    
+    `
+    k++;
+    cr.style.border="5px solid white";
+    cr.style.width="800px";
+    cr.style.height="20px";
+  major.append(cr);
+});*/
+
+
+
+
+
+
+</script>
+</html>
